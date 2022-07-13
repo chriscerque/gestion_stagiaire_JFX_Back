@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<?language javascript?>-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import net.ent.etrs.gestion_stagiaire.controllerFx.ConnexionController ?>
+<!--<?import java.lang.System?>-->
+<!--<ConnexionController fx:factory="instance" fx:id="tutu" xmlns:fx="http://javafx.com/javafx/11.0.1"/>-->
+
+<!--<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.ent.etrs.gestion_stagiaire.controllerFx.ConnexionController">-->
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.ent.etrs.gestion_stagiaire.controllerFx.ConnexionController">
+    <children>
+
+        <!--      <fx:include fx:id="barreMenu" source="BarreMenu.fxml" />-->
+        <TextField fx:id="tfLogin" layoutX="226.0" layoutY="138.0" promptText="courriel"/>
+        <PasswordField fx:id="tfPwd" layoutX="226.0" layoutY="188.0" promptText="mot de passe" />
+        <Button fx:id="btnConnexion" layoutX="264.0" layoutY="248.0" mnemonicParsing="false" text="Connexion" onAction="#connexion"/>
+    </children>
+
+</AnchorPane>

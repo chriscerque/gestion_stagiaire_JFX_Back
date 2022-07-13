@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="net.ent.etrs.gestion_stagiaire.controllerFx.BarreMenuController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <MenuBar fx:id="barreMenu" prefHeight="28.0" prefWidth="600.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Mes comptes">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#gererAccueil" text="Synthèse des comptes" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Stagiaires">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#gererStagiaire" text="Gestion des stagiaires" />
+                        <MenuItem mnemonicParsing="false" onAction="#listerStagiaire" text="Lister les stagiaires" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Aide">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#quitter" text="Quitter" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </children>
+</AnchorPane>
