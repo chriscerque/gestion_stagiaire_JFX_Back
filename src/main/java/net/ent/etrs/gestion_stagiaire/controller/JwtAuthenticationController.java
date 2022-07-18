@@ -32,7 +32,7 @@ public class JwtAuthenticationController {
 	private MyUserDetailService userDetailsService;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)  {
 		System.out.println("JwtAuthenticationController / createAuthenticationToken");
 		System.out.println("authenticationRequest.getUsername() : " + authenticationRequest.getUsername());
 		System.out.println("authenticationRequest.getPassword() : " + authenticationRequest.getPassword());
@@ -58,8 +58,9 @@ public class JwtAuthenticationController {
 			responseHeaders.set("Authorization", token);
 			return new ResponseEntity<MyUser>(myUser, responseHeaders, HttpStatus.OK);
 		}catch (UsernameNotFoundException e){
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>ERR");
 			e.printStackTrace();
-			throw new Exception(e);
+//			throw new Exception(e);
 		}
 		catch (Exception e1){
 			e1.printStackTrace();

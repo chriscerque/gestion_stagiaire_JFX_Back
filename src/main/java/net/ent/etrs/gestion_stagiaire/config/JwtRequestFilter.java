@@ -30,6 +30,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 		System.out.println("JwtRequestFilter / doFilterInternal");
+		System.out.println("request.getRequestURI() : " + request.getRequestURI());
+		System.out.println("request.getHeaderNames() : " + request.getHeaderNames());
+
+		System.out.println("response : " + response);
 		final String requestTokenHeader = request.getHeader("Authorization");
 		System.out.println("requestTokenHeader : " + requestTokenHeader);
 		String username = null;
@@ -71,6 +75,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 			}
 		}
+		System.out.println("JwtRequestFilter / doFilterInternal fin");
 		chain.doFilter(request, response);
 	}
 
