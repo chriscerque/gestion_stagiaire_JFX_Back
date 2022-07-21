@@ -4,15 +4,12 @@ import net.ent.etrs.gestion_stagiaire.model.entities.MyUser;
 import net.ent.etrs.gestion_stagiaire.model.entities.UserDTO;
 import net.ent.etrs.gestion_stagiaire.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NonUniqueResultException;
-import java.util.ArrayList;
-import java.util.Objects;
 
 @Service
 public class MyUserDetailService implements UserDetailsService {
@@ -28,7 +25,8 @@ public class MyUserDetailService implements UserDetailsService {
         System.out.println(">>>>>>>>>>MyUserDetailService/loadUserByUsername");
 
         try {
-            MyUser user = userRepo.findUserByUsername(username).orElseThrow(() ->new NonUniqueResultException("tutututututu"));
+//            MyUser user = userRepo.findUserByUsername(username).orElseThrow(() ->new NonUniqueResultException("tutututututu"));
+            MyUser user = userRepo.findUserByUsername(username).get();
             System.out.println("user : " + user);
 //            if (user == null) {
 //                throw new UsernameNotFoundException("User not found with username: " + username);
@@ -36,7 +34,7 @@ public class MyUserDetailService implements UserDetailsService {
 //            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 //                    new ArrayList<>());
             return user;
-        }catch (UsernameNotFoundException e){
+        } catch (UsernameNotFoundException e) {
             e.printStackTrace();
             throw new UsernameNotFoundException(e.getMessage());
         } catch (NonUniqueResultException e) {
@@ -66,8 +64,12 @@ public class MyUserDetailService implements UserDetailsService {
         newUser.setUsername(userDTO.getUsername());
         newUser.setPassword(bcryptEncoder.encode(userDTO.getPassword()));
         try {
-            return this.loadUserByUsername(newUser.getUsername());
-        }catch (UsernameNotFoundException | NonUniqueResultException e){
+            System.out.println(">>>>>>>>>>MyUserDetailService/save try");
+
+            MyUser u = this.loadUserByUsername(newUser.getUsername());
+            return u;
+        } catch (UsernameNotFoundException | NonUniqueResultException e) {
+            System.out.println(">>>>>>>>>>MyUserDetailService/save catch");
             return userRepo.save(newUser);
         }
 

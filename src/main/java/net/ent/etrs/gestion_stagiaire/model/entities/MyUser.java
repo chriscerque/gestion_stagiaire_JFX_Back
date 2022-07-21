@@ -21,16 +21,16 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "MY_USER")
 @NoArgsConstructor
-public class MyUser implements Serializable, UserDetails {
+public class MyUser extends AbstractEntity implements Serializable, UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
-    @Column(name = "USER_ID")
-    private Integer userId;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Getter
+//    @Setter
+//    @Column(name = "USER_ID")
+//    private Long userId;
 
     @Getter @Setter
     @Column(name = "USER_NAME", unique = true)
@@ -57,7 +57,7 @@ public class MyUser implements Serializable, UserDetails {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(
             name="USER_ROLES",
-            joinColumns=@JoinColumn(name="USER_ID")
+            joinColumns=@JoinColumn(name="USER_ID", foreignKey = @ForeignKey(name = "user_role__role__fk"))
     )
     @Column(name = "ROLE")
     @Getter
