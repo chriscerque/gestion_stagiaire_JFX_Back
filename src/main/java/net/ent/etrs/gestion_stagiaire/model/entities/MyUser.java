@@ -1,15 +1,11 @@
 package net.ent.etrs.gestion_stagiaire.model.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.ent.etrs.gestion_stagiaire.model.entities.references.Role;
-import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,45 +17,47 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "MY_USER")
 @NoArgsConstructor
-public class MyUser implements Serializable, UserDetails {
+public class MyUser extends AbstractEntity implements Serializable, UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Getter
+//    @Setter
+//    @Column(name = "USER_ID")
+//    private Long userId;
+
     @Getter
     @Setter
-    @Column(name = "USER_ID")
-    private Integer userId;
-
-    @Getter @Setter
     @Column(name = "USER_NAME", unique = true)
     private String username;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @Column(name = "PASSWORD")
     @JsonIgnore
     private String password;
 
-    @Column(name = "ACCOUNT_NON_EXPIRED")
+    @Column(name = "ACCOUNT_NON_EXPIRED", columnDefinition = "boolean default false", nullable = false)
     private boolean accountNonExpired;
 
-    @Column(name = "ACCOUNT_NON_LOCKED")
+    @Column(name = "ACCOUNT_NON_LOCKED", columnDefinition = "boolean default false", nullable = false)
     private boolean accountNonLocked;
 
-    @Column(name = "CREDENTIALS_NON_EXPIRED")
+    @Column(name = "CREDENTIALS_NON_EXPIRED", columnDefinition = "boolean default false", nullable = false)
     private boolean credentialsNonExpired;
 
-    @Column(name = "ENABLED")
+    @Column(name = "ENABLED", columnDefinition = "boolean default false", nullable = false)
     private boolean enabled;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(
-            name="USER_ROLES",
-            joinColumns=@JoinColumn(name="USER_ID")
+            name = "USER_ROLES",
+            joinColumns = @JoinColumn(name = "USER_ID", foreignKey = @ForeignKey(name = "user_role__user_id__fk"))
     )
-    @Column(name = "ROLE")
+//    @Column(name = "ROLE")
     @Getter
     private List<Role> roles = new ArrayList<>();
 
@@ -102,7 +100,7 @@ public class MyUser implements Serializable, UserDetails {
 //    }
 
     public void grantAuthority(Role authority) {
-        if ( roles == null ) roles = new ArrayList<>();
+        if (roles == null) roles = new ArrayList<>();
         roles.add(authority);
     }
 

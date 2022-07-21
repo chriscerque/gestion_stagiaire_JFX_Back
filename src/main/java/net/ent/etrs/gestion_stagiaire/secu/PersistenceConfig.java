@@ -23,7 +23,7 @@ public class PersistenceConfig {
     }
 
     @Bean
-    public AccessDeniedHandler getAccessDeniedHandler(){
+    public AccessDeniedHandler getAccessDeniedHandler() {
         return new AccessDeniedHandlerImpl();
     }
 

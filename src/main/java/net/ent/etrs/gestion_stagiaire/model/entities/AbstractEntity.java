@@ -9,19 +9,17 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.AbstractAuditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @SuppressWarnings("serial")
-@NoArgsConstructor(access= AccessLevel.PROTECTED)
-@EqualsAndHashCode(of="id")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = "id")
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements Serializable {
@@ -36,21 +34,21 @@ public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements
 //    @Column(name = "UUID")
 //    protected String uuid = UUID.randomUUID().toString();
 
-    @Column(name = "CREATED_BY_USER", nullable = false)
+    @Column(name = "CREATED_BY_USER", nullable = false, columnDefinition = "VARCHAR(255) default 'ANONYMOUS'")
     @CreatedBy
     private String createdByUser;
 
-    @Column(name = "MODIFIED_BY_USER", nullable = false)
+    @Column(name = "MODIFIED_BY_USER", nullable = false, columnDefinition = "VARCHAR(255) default 'ANONYMOUS'")
     @LastModifiedBy
     private String modifiedByUser;
 
     @Column(name = "CREATED_DATE", nullable = false)
     @CreatedDate
-    private LocalDate createdDate;
+    private LocalDate createdDate = LocalDate.now();
 
     @Column(name = "MODIFIED_DATE", nullable = false)
     @LastModifiedDate
-    private LocalDate modifiedDate;
+    private LocalDate modifiedDate = LocalDate.now();
 
 //    @PrePersist
 //    public void prePersist() {
