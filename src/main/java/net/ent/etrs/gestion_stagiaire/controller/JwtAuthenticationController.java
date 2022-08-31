@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -57,10 +54,11 @@ public class JwtAuthenticationController {
 //			responseHeaders.setLocation(location);
             responseHeaders.set("Authorization", token);
             return new ResponseEntity<MyUser>(myUser, responseHeaders, HttpStatus.OK);
-        } catch (UsernameNotFoundException e) {
+        } catch (UsernameNotFoundException | BadCredentialsException | LockedException | DisabledException e) {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>ERR");
             e.printStackTrace();
 //			throw new Exception(e);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -74,16 +72,16 @@ public class JwtAuthenticationController {
         return ResponseEntity.ok(myUser);
     }
 
-    private void authenticate(String username, String password) throws Exception {
-        try {
-            System.out.println("JwtAuthenticationController / authenticate");
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException e) {
-            e.printStackTrace();
-            throw new Exception("USER_DISABLED", e);
-        } catch (BadCredentialsException e) {
-            e.printStackTrace();
-            throw new Exception("INVALID_CREDENTIALS", e);
-        }
+    private void authenticate(String username, String password) throws BadCredentialsException, DisabledException, LockedException {
+//        try {
+        System.out.println("JwtAuthenticationController / authenticate");
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+//        } catch (DisabledException e) {
+//            e.printStackTrace();
+//            throw new Exception("USER_DISABLED", e);
+//        } catch (BadCredentialsException e) {
+//            e.printStackTrace();
+//            throw new Exception("INVALID_CREDENTIALS", e);
+//        }
     }
 }
