@@ -1,7 +1,6 @@
 package net.ent.etrs.gestion_stagiaire.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,7 +27,7 @@ public class Stagiaire extends AbstractEntity{
     @Getter @Setter
     @Column(name = "NOM", nullable = false)
     @NotBlank(message = Cmodel.BV_STAGIAIRE_NOM_NOT_NULL)
-    @JsonProperty("name")
+//    @JsonProperty("name")
     private String nom;
 
     @Getter @Setter

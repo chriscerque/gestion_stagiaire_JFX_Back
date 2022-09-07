@@ -9,5 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface StagiaireRepo extends JpaRepository<Stagiaire, Long> {
 
-    public Stagiaire findStagiaireByNomAndPrenom(String nom, String prenom);
+    Stagiaire findStagiaireByNomAndPrenom(String nom, String prenom);
 }
