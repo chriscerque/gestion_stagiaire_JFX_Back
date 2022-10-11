@@ -10,7 +10,7 @@ import net.ent.etrs.gestion_stagiaire.model.entities.Stagiaire;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DtoUtils {
 
-    public static StagiaireDto stagiaireToDto(Stagiaire stagiaire){
+    public static StagiaireDto stagiaireToDto(Stagiaire stagiaire) {
         StagiaireDto stagiaireDto = new StagiaireDto();
         stagiaireDto.nom = stagiaire.getNom();
         stagiaireDto.prenom = stagiaire.getPrenom();
@@ -23,12 +23,12 @@ public final class DtoUtils {
         stagiaireDto.numChambre = stagiaire.getNumChambre();
         stagiaireDto.numBadgeMess = stagiaire.getNumBadgeMess();
         stagiaireDto.numBadgeAcces = stagiaire.getNumBadgeAcces();
-        stagiaire.getNoteList().forEach(n->stagiaireDto.ajouterNote(DtoUtils.noteToDto(n)));
+//        stagiaire.getNoteList().forEach(n->stagiaireDto.ajouterNote(DtoUtils.noteToDto(n)));
 
         return stagiaireDto;
     }
 
-    public static Stagiaire stagiaireFromDto(StagiaireDto stagiaireDto){
+    public static Stagiaire stagiaireFromDto(StagiaireDto stagiaireDto) {
         Stagiaire stagiaire = new Stagiaire();
         stagiaire.setNom(stagiaireDto.nom);
         stagiaire.setPrenom(stagiaireDto.prenom);
@@ -41,12 +41,12 @@ public final class DtoUtils {
         stagiaire.setNumChambre(stagiaireDto.numChambre);
         stagiaire.setNumBadgeMess(stagiaireDto.numBadgeMess);
         stagiaire.setNumBadgeAcces(stagiaireDto.numBadgeAcces);
-        stagiaireDto.noteList.forEach(n->stagiaire.ajouterNote(DtoUtils.noteFromDto(n)));
+//        stagiaireDto.noteList.forEach(n -> stagiaire.ajouterNote(DtoUtils.noteFromDto(n)));
         System.out.println("stagiaireFromDto : " + stagiaireDto);
         return stagiaire;
     }
 
-    public static NoteDto noteToDto(Note note){
+    public static NoteDto noteToDto(Note note) {
         NoteDto noteDto = new NoteDto();
         noteDto.dateNote = note.getDateNote();
         noteDto.evaluation = DtoUtils.evaluationToDto(note.getEvaluation());
@@ -54,7 +54,7 @@ public final class DtoUtils {
         return noteDto;
     }
 
-    public static Note noteFromDto(NoteDto noteDto){
+    public static Note noteFromDto(NoteDto noteDto) {
         Note note = new Note();
         //TODO pas fini
 
