@@ -30,7 +30,7 @@ public class StagiaireController {
         return stagiaireRepo.findAll();
     }
 
-    @PostMapping(produces = "application/json;charset=utf-8", path = "/Stagiaire")
+    @PostMapping(produces = "application/json;charset=utf-8", path = "/stagiaire")
     public ResponseEntity<?> setStagiaire(@RequestBody StagiaireDto stagiaireDto) {
         System.out.println("StagiaireController / setStagiaire");
         System.out.println("stagiaire : " + stagiaireDto);
