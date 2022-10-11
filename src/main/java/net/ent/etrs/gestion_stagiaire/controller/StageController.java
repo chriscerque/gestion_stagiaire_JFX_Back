@@ -16,9 +16,9 @@ public class StageController {
     @Autowired
     private StageRepo stageRepo;
 
-    @GetMapping(produces = "application/json;charset=utf-8", path = "/stage")
-    public List<Stage> getStage() {
-        System.out.println("getStage");
+    @GetMapping(produces = "application/json;charset=utf-8", path = "/stages")
+    public List<Stage> getStages() {
+        System.out.println("getStages");
         stageRepo.findAll().forEach(s -> System.out.printf("%s : %s | %s%n", s.getCodeStage(), s.getDateDebut(), s.getDateFin()));
 
         return stageRepo.findAll();

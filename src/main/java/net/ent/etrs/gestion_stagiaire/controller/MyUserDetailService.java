@@ -1,5 +1,6 @@
 package net.ent.etrs.gestion_stagiaire.controller;
 
+import net.ent.etrs.gestion_stagiaire.model.dto.DtoUtils;
 import net.ent.etrs.gestion_stagiaire.model.entities.MyUser;
 import net.ent.etrs.gestion_stagiaire.model.entities.UserDTO;
 import net.ent.etrs.gestion_stagiaire.repo.UserRepo;
@@ -60,9 +61,13 @@ public class MyUserDetailService implements UserDetailsService {
     }
 
     public MyUser save(UserDTO userDTO) {
+
+
+
         MyUser newUser = new MyUser();
         newUser.setUsername(userDTO.getUsername());
         newUser.setPassword(bcryptEncoder.encode(userDTO.getPassword()));
+
         try {
             System.out.println(">>>>>>>>>>MyUserDetailService/save try");
 

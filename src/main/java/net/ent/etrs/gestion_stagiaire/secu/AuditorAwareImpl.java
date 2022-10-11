@@ -17,11 +17,15 @@ public class AuditorAwareImpl implements AuditorAware<String> {
         System.out.println(">>>>>>>>>>>AuditorAwareImpl/getCurrentAuditor");
 //        return Optional.of(SecurityContextHolder.getContext().getAuthentication().getName());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("authentication.getClass() " + authentication.getClass());
+
         System.out.println("AuditorAwareImpl/getCurrentAuditor");
         System.out.println("authentication : " + authentication);
+        if(authentication != null){
+            System.out.println("authentication.getClass() " + authentication.getClass());
+        }
+
         if (authentication == null || !authentication.isAuthenticated()) {
-            return null;
+            return Optional.of("ANONYMOUS");
         }
         if (authentication.getPrincipal() instanceof MyUser) {
             System.out.println("((User) authentication.getPrincipal()).getUsername() : " + ((MyUser) authentication.getPrincipal()).getUsername());
