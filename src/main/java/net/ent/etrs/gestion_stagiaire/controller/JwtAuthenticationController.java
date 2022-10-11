@@ -52,7 +52,7 @@ public class JwtAuthenticationController {
 //			return ResponseEntity.ok().header("Authorization",token).body(myUser);
             HttpHeaders responseHeaders = new HttpHeaders();
 //			responseHeaders.setLocation(location);
-            responseHeaders.set("Authorization", token);
+            responseHeaders.set("Authorization", "Bearer "+token);
             return new ResponseEntity<MyUser>(myUser, responseHeaders, HttpStatus.OK);
         } catch (UsernameNotFoundException | BadCredentialsException | LockedException | DisabledException e) {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>ERR");
