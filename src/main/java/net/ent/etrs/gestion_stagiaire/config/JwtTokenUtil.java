@@ -38,7 +38,7 @@ public class JwtTokenUtil implements Serializable {
 
     //for retrieveing any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(getTokenWithOutBearer(token)).getBody();
     }
 
     //check if the token has expired
@@ -62,7 +62,7 @@ public class JwtTokenUtil implements Serializable {
         System.out.println("JwtTokenUtil / doGenerateToken");
         System.out.println("secret : " + secret);
         System.out.println("subject : " + subject);
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+        return "Bearer " + Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
@@ -74,5 +74,13 @@ public class JwtTokenUtil implements Serializable {
         }
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private String getTokenWithOutBearer(String token) {
+        if (token.startsWith("Bearer ")) {
+            return token.split("Bearer ")[1];
+        }
+        return token;
+
     }
 }

@@ -31,7 +31,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         System.out.println("JwtRequestFilter / doFilterInternal");
         System.out.println("request.getRequestURI() : " + request.getRequestURI());
         System.out.println("request.getHeaderNames() : " + request.getHeaderNames());
-        request.getHeaderNames().asIterator().forEachRemaining(s->System.out.println(s));
+        request.getHeaderNames().asIterator().forEachRemaining(s -> System.out.println(s));
         System.out.println("----------------------------------------------------------------");
         System.out.println("response : " + response);
         final String requestTokenHeader = request.getHeader("Authorization");
@@ -57,6 +57,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         System.out.println("JwtRequestFilter / doFilterInternal 31 ");
         System.out.println("username : " + username);
         // Once we get the token validate it.
+        System.out.println("SecurityContextHolder.getContext() : " + SecurityContextHolder.getContext());
+        System.out.println("SecurityContextHolder.getContext().getAuthentication() : " + SecurityContextHolder.getContext().getAuthentication());
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             System.out.println("JwtRequestFilter / doFilterInternal 32 dans if");
             UserDetails userDetails = this.myUserDetailService.loadUserByUsername(username);

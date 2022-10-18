@@ -12,11 +12,14 @@ import org.springframework.security.authentication.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 public class JwtAuthenticationController {
 
     @Autowired
@@ -52,7 +55,7 @@ public class JwtAuthenticationController {
 //			return ResponseEntity.ok().header("Authorization",token).body(myUser);
             HttpHeaders responseHeaders = new HttpHeaders();
 //			responseHeaders.setLocation(location);
-            responseHeaders.set("Authorization", "Bearer "+token);
+            responseHeaders.set("Authorization", token);
             return new ResponseEntity<MyUser>(myUser, responseHeaders, HttpStatus.OK);
         } catch (UsernameNotFoundException | BadCredentialsException | LockedException | DisabledException e) {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>ERR");

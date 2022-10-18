@@ -2,8 +2,6 @@ package net.ent.etrs.gestion_stagiaire.model.entities;
 
 import lombok.*;
 
-import javax.persistence.Column;
-
 @Data
 @Builder
 @NoArgsConstructor

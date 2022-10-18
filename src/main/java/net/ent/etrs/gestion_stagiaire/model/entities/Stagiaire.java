@@ -9,11 +9,15 @@ import net.ent.etrs.gestion_stagiaire.model.entities.references.Cmodel;
 import net.ent.etrs.gestion_stagiaire.model.entities.references.Grade;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "STAGIAIRE")
@@ -86,22 +90,21 @@ public class Stagiaire extends AbstractEntity {
     @Setter
     @Column(name = "NUM_BADGE_ACCES")
     private Integer numBadgeAcces;
+    @OneToMany
+    @JoinColumn(name = "STAGIAIRE_ID", foreignKey = @ForeignKey(name = "FK_NOTE_STAGIAIRE_ID"))
+    private Set<Note> noteList = new HashSet<>();
 
-//    public Set<Note> getNoteList() {
-//        return Collections.unmodifiableSet(this.noteList);
-//    }
-//
-//    @OneToMany
-//    @JoinColumn(name = "STAGIAIRE_ID", foreignKey = @ForeignKey(name = "FK_NOTE_STAGIAIRE_ID"))
-//    private Set<Note> noteList = new HashSet<>();
-//
-//    public void ajouterNote(@Valid Note note) {
-//        this.noteList.add(note);
-//    }
-//
-//    public void supprimerNote(@Valid Note note) {
-//        this.noteList.remove(note);
-//    }
+    public Set<Note> getNoteList() {
+        return Collections.unmodifiableSet(this.noteList);
+    }
+
+    public void ajouterNote(@Valid Note note) {
+        this.noteList.add(note);
+    }
+
+    public void supprimerNote(@Valid Note note) {
+        this.noteList.remove(note);
+    }
 
 
 }
